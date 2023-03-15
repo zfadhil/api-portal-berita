@@ -13,7 +13,8 @@ class PostController extends Controller
     public function index(){
         $posts = Post::all();
         // return response()->json(['data' => $posts]);
-        return PostResource::collection($posts);
+        return PostDetailResource::collection($posts);
+        // return PostDetailResource::collection($posts->loadMissing('writer:id,username'));
     }
 
     public function show($id){
@@ -37,5 +38,14 @@ class PostController extends Controller
 
         $post = Post::create($request->all());
         return new PostDetailResource($post->loadMissing('writer:id,username'));
+    }
+
+    public function update(Request $request, $id){
+        $request -> validate([
+            'title' => 'required|max:255',
+            'news_content' => 'required'
+        ]);
+
+        return response()->json('sudah dapat digunakan');
     }
 }
