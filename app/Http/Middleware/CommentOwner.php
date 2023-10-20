@@ -18,10 +18,10 @@ class CommentOwner
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
+        $currentUser = Auth::user();
         $comment = Comment::findOrFail($request->id);
 
-        if ($comment->user_id != $user->id) {
+        if ($comment->user_id != $currentUser->id) {
             return response([
                 'message' => 'data not found'
             ], 404);

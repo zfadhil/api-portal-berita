@@ -62,7 +62,7 @@ class PostController extends Controller
         $image = null;
         if ($request -> file) {
             $fileName = $this->generateRandomString();
-            $extension = $request->file->extension();
+            $extension = $request->file->extension('.jpg','.png','.jpeg');
 
             $image = $fileName. '.' .$extension;
             Storage::putFileAs('image', $request->file, $image);
